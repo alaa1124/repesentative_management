@@ -1,0 +1,72 @@
+<data>
+    <record id="operation_management_form_view" model="ir.ui.view">
+        <field name="name">operation.management.form</field>
+        <field name="model">operation.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_in_progress" string="In Progress" type="object" invisible="state != 'draft'"
+                            groups="repesentative_management.group_in_progress_btn" class="btn btn-primary"/>
+                    <button name="action_approve" string="Approved" type="object" invisible="state != 'in_progress'"
+                            groups="repesentative_management.group_approve_btn" class="btn btn-primary"/>
+                    <button name="action_create_invoice" string="Create Invoice" type="object"
+                            invisible="state != 'approved' or is_invoice_posted == True" class="btn btn-primary"
+                            groups="repesentative_management.group_create_invoice"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,approved" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines" type="object" string="View Lines" icon="fa-bars"
+                                invisible="state == 'draft'"/>
+                        <button name="action_view_invoice" type="object" string="Invoice" icon="fa-book"
+                                invisible="invoice_id == False"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" required="1" readonly="state != 'draft'"/>
+                            <field name="date_from" required="1" readonly="state != 'draft'"/>
+                            <field name="partner_id" required="1" options="{'no_create': True}" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="month" required="1" readonly="state != 'draft'"/>
+                            <field name="date_to" required="1" readonly="state != 'draft'"/>
+                            <field name="invoice_id" invisible="1"/>
+                            <field name="is_invoice_posted" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="operation_management_tree_view" model="ir.ui.view">
+        <field name="name">operation.management.tree</field>
+        <field name="model">operation.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state" optional="hide"/>
+                <field name="month" optional="hide"/>
+                <field name="date_from" optional="hide"/>
+                <field name="date_to" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_operation_management" model="ir.actions.act_window">
+        <field name="name">Operation Management</field>
+        <field name="res_model">operation.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_representative_management"
+              name="Representative Management" web_icon="repesentative_management,static/description/icon.png"/>
+
+    <menuitem id="menu_operation_management"
+              name="Operation Management"
+              parent="menu_representative_management"
+              action="action_operation_management"
+              sequence="5"/>
+</data>

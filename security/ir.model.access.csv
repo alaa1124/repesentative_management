@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_operation_management,access.operation.management,model_operation_management,,1,1,1,1
+access_operation_management_line,access.operation.management.line,model_operation_management_line,,1,1,1,1
+access_operation_partner,access.operation.partner,model_operation_partner,,1,1,1,1

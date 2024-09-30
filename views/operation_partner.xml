@@ -1,0 +1,46 @@
+<data>
+    <record id="operation_partner_form_view" model="ir.ui.view">
+        <field name="name">operation.partner.form</field>
+        <field name="model">operation.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="product_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="journal_id" options="{'no_create': True}"/>
+                            <field name="cost_center_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="operation_partner_tree_view" model="ir.ui.view">
+        <field name="name">operation.partner.tree</field>
+        <field name="model">operation.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_operation_partner" model="ir.actions.act_window">
+        <field name="name">Operation Partner</field>
+        <field name="res_model">operation.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_operation_partner"
+              name="Operation Partner"
+              parent="menu_representative_management"
+              action="action_operation_partner"
+              sequence="20"/>
+
+</data>
